@@ -1,0 +1,6 @@
+<li>
+    <form method='POST' name='{{i}}' action='/tick/{{today}}/{{i}}' onChange='submit();'>
+        <input type='checkbox' {{'checked' if ticked else ''}} name='checkbox' >
+        <span>{{text|safe}}</span>
+    </form>
+</li>

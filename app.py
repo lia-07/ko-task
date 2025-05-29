@@ -31,8 +31,7 @@ class ListItem:
         return f"- [{'x' if self.ticked else ' '}] {self.text}\n"
 
     def to_html(self, i, today):
-        str = f"<li><form method='POST' name='{i}' action='/tick/{today}/{i}' onChange='submit();'><input type='checkbox' {'checked' if self.ticked else ''} name='checkbox' ><span>{self.text}</span></form></li>"
-        return str
+        return render_template("ListItem.html", ticked=self.ticked, text=self.text, i=i, today=today)
 
 @app.route('/')
 def TaskList():
