@@ -1,11 +1,12 @@
 from flask import Flask, redirect, render_template
 from datetime import date, datetime
+from dotenv import load_dotenv
 import os
 import shutil
 
 app = Flask(__name__)
 
-daily_notes = "/Users/lia/Documents/Obsidian/lias-vault/Daily"
+daily_notes = os.getenv('DAILY_NOTES_DIR')
 
 class ListItem:
     def __init__(self, md_item):
