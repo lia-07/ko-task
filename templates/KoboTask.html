@@ -7,73 +7,68 @@
         <style>
             body {
                 padding: 8px;
-            }
-
-            h1 {
-                margin: 0px;
-                font-weight: bold;
+                font-family: serif;
+                max-width: 800px;
+                margin: 0 auto;
                 font-family: sans-serif;
             }
 
-            ul {
+            h1 {
+                font-weight: bold;
+                margin: 0;
+                font-size: 2.5rem;
+                font-family: sans-serif;
+            }
+
+            form button {
+                width: 48px;
+                height: 48px;
+                padding: 4px;
+                border: 2px solid black;
+                background-color: #ddd;
+            }
+
+            button svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            td:first-child {
+                vertical-align: top;
                 padding: 0;
-                list-style: none;
+                padding-top: 6px;
+                width: 48px;
             }
 
-            form {
+            td:nth-child(2) {
+                padding: 6px 10px;
+            }
+
+            td span {
                 font-size: 2rem;
-                line-height: 1;
-                margin: 1rem 0;
-                display: flex;
             }
 
-            form span {
+            table {
                 width: 100%;
             }
 
-            form input[type="checkbox"] {
-                /* Add if not using autoprefixer */
-                -webkit-appearance: none;
-                /* Remove most all native input styles */
-                appearance: none;
-                /* For iOS < 15 */
-                background-color: #fff;
-                margin: 0 1rem 0 0;
-                flex: none;
-                font: inherit;
-                color: currentColor;
-                width: 3rem;
-                height: 3rem;
-                border: 0.15rem solid #ccc;
-                transform: translateY(-0.075em);
-            }
-
-            input[type="checkbox"]:checked {
-                background-color: #000;
-            }
-
-            input[type="checkbox"]:focus {
-                outline: max(2px, 0.15em) solid currentColor;
-                outline-offset: max(2px, 0.15em);
-            }
-
-            input[type="checkbox"]:disabled {
-                --form-control-color: var(--form-control-disabled);
-
-                color: var(--form-control-disabled);
-                cursor: not-allowed;
-            }
             small {
                 color: #333;
                 font-size: 1.2rem;
+                line-height: 1.2rem;
                 display: inline;
+            }
+
+            table hr {
+                border-color: #ccc;
             }
         </style>
     </head>
     <body>
         <h1>{{today}}</h1>
-        <ul>
+        <hr />
+        <table>
             {{items|safe}}
-        </ul>
+        </table>
     </body>
 </html>

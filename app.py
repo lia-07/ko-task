@@ -42,23 +42,29 @@ def TaskList():
     with open(f"{daily_notes}/{today}.md") as note:
         items = ''
         for i,line in enumerate(note):
+            # CHECK IF FILE IS EMPTY
             if line.startswith("- ["):
+                # line is a list item
                 item = ListItem(line)
                 items += item.to_html(i, today)
             elif line.startswith("***") or line.startswith("---"):
-                items += "<hr>\n"
+                # line is a divider
+                items += "<tr><td><hr></td><td</td><tr>\n"
     return render_template("KoboTask.html", today=today, items=items)
 
-@app.route('/tick/<today>/<i>', methods=['POST'])
-def TickItem(today, i):
+@app.route('/tick/<today>/<i>/<t>', methods=['POST'])
+def TickItem(today, i, t):
     with open(f"{daily_notes}/{today}.md") as note:
         items = note.readlines()
 
+    if int(i) < 0 or int(i) > (len(items)-1):
+        return "<h1>Error: List item number is out of bounds.</h1>"
+
     item = ListItem(items[int(i)])
 
-    if item.ticked:
+    if t == "untick" and item.ticked:
         item.untick()
-    else:
+    elif t == "tick" and not item.ticked:
         item.tick()
 
     items[int(i)] = item.to_md()
