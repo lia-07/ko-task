@@ -4,13 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/static/app.css" />
-        <title>KoboTask — {{today}}</title>
+        <title>KoboTask — Error</title>
     </head>
     <body>
-        <h1>{{today}}</h1>
+        <h1>{{error}}</h1>
         <hr />
-        <table>
-            {{items|safe}}
-        </table>
+        <p>{{error_body|safe}}</p>
+        <img src="https://http.cat/{{status}}.jpg" />
     </body>
 </html>

@@ -1,0 +1,66 @@
+body {
+    padding: 8px;
+    font-family: serif;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 2.5rem;
+    font-family: sans-serif;
+}
+
+form button {
+    width: 48px;
+    height: 48px;
+    padding: 4px;
+    border: 2px solid black;
+    background-color: #ddd;
+}
+
+button svg {
+    width: 100%;
+    height: 100%;
+}
+
+td:first-child {
+    vertical-align: top;
+    padding: 0;
+    padding-top: 6px;
+    width: 48px;
+}
+
+td:nth-child(2) {
+    padding: 6px 10px;
+}
+
+td span {
+    font-size: 2rem;
+}
+
+table {
+    width: 100%;
+}
+
+small {
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    display: inline;
+}
+
+table hr {
+    border-color: #ccc;
+}
+
+p {
+    font-size: 1.6rem;
+    color: #444;
+}
+
+img {
+    width: 100%;
+}

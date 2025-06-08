@@ -12,19 +12,22 @@ class ListItem:
         self.text = md_item[6:].rstrip()
         self.ticked = True if md_item[3] == "x" else False
 
-    def tick(self):
-        self.add_timestamp()
+    def toggle(self):
+        self.ticked = not self.ticked
+
+    def __tick(self):
+        self.__add_timestamp()
         self.ticked = True
 
-    def untick(self):
-        self.remove_timestamp()
+    def __untick(self):
+        self.__remove_timestamp()
         self.ticked = False
 
-    def add_timestamp(self):
+    def __add_timestamp(self):
         now = datetime.now().strftime('%H:%M')
         self.text += f" <small>{now}</small>"
 
-    def remove_timestamp(self):
+    def __remove_timestamp(self):
         self.text = self.text[:-21]
 
     def to_md(self):
@@ -36,7 +39,15 @@ class ListItem:
 @app.route('/')
 def TaskList():
     today = date.today().strftime('%Y-%m-%d')
+
+    # create a new daily note for today based on the default one if none exists
     if os.path.isfile(f"{daily_notes}/{today}.md") == False:
+        # inform the user if today's daily note doesn't exist and no default one was specified
+        if os.path.isfile(f"{daily_notes}/Default.md") == False:
+            err = "Couldn't find today's daily note, and a default one wasn't specified."
+            print(f"Error: {err}")
+            return render_template("Error.html", status=500, error="Internal Server Error", error_body=err), 500
+
         shutil.copyfile(f"{daily_notes}/Default.md", f"{daily_notes}/{today}.md")
 
     with open(f"{daily_notes}/{today}.md") as note:
@@ -62,10 +73,8 @@ def TickItem(today, i, t):
 
     item = ListItem(items[int(i)])
 
-    if t == "untick" and item.ticked:
-        item.untick()
-    elif t == "tick" and not item.ticked:
-        item.tick()
+    if (t == "untick" and item.ticked) or (t == "tick" and not item.ticked):
+        item.toggle()
 
     items[int(i)] = item.to_md()
 
