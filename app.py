@@ -9,32 +9,44 @@ daily_notes = os.getenv('DAILY_NOTES_DIR')
 
 class ListItem:
     def __init__(self, md_item):
-        self.text = md_item[6:].rstrip()
-        self.ticked = True if md_item[3] == "x" else False
-
-    def toggle(self):
-        self.ticked = not self.ticked
+        self.__content = md_item[6:].rstrip()
+        self.__ticked = True if md_item[3] == "x" else False
 
     def __tick(self):
         self.__add_timestamp()
-        self.ticked = True
+        self.__ticked = True
 
     def __untick(self):
         self.__remove_timestamp()
-        self.ticked = False
+        self.__ticked = False
 
     def __add_timestamp(self):
         now = datetime.now().strftime('%H:%M')
-        self.text += f" <small>{now}</small>"
+        self.__content += f" <small>{now}</small>"
 
     def __remove_timestamp(self):
-        self.text = self.text[:-21]
+        self.__content = self.__content[:-21]
+
+    # setter for ticked attribute
+    def toggle(self):
+        if self.__ticked:
+            self.__untick()
+        else:
+            self.__tick()
+
+    # getter for ticked attribute
+    def is_ticked(self):
+        return self.__ticked
+
+    # getter for content attribute
+    def get_content(self):
+        return self.__content
 
     def to_md(self):
-        return f"- [{'x' if self.ticked else ' '}] {self.text}\n"
+        return f"- [{'x' if self.__ticked else ' '}] {self.__content}\n"
 
     def to_html(self, i, today):
-        return render_template("ListItem.html", ticked=self.ticked, text=self.text, i=i, today=today)
+        return render_template("ListItem.html", ticked=self.__ticked, text=self.__content, i=i, today=today)
 
 @app.route('/')
 def TaskList():
@@ -73,7 +85,7 @@ def TickItem(today, i, t):
 
     item = ListItem(items[int(i)])
 
-    if (t == "untick" and item.ticked) or (t == "tick" and not item.ticked):
+    if (t == "untick" and item.is_ticked()) or (t == "tick" and not item.is_ticked()):
         item.toggle()
 
     items[int(i)] = item.to_md()
