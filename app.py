@@ -56,9 +56,7 @@ def TaskList():
     if os.path.isfile(f"{daily_notes}/{today}.md") == False:
         # inform the user if today's daily note doesn't exist and no default one was specified
         if os.path.isfile(f"{daily_notes}/Default.md") == False:
-            err = "Couldn't find today's daily note, and a default one wasn't specified. Make sure you have specified your daily notes directory as an environment variable, and created 'Default.md' within it."
-            print(f"Error: {err}")
-            return http_exception(f"500 Internal Server Error: {err}")
+            return http_exception("500 Internal Server Error: Couldn't find today's daily note, and a default one wasn't specified. Make sure you have specified your daily notes directory as an environment variable, and created 'Default.md' within it.")
 
         shutil.copyfile(f"{daily_notes}/Default.md", f"{daily_notes}/{today}.md")
 
@@ -100,7 +98,8 @@ def TickItem(today, i, t):
 def http_exception(e):
     e = str(e)
     status = int(e[0:3])
-    message = e.split(":")[0][4:]
-    print(str(e))
+    error = e.split(":")[0][4:]
+    message = e.split(":")[1][1:]
+    print(f"Error: {message}")
 
-    return render_template('Error.html', status=status, error=f"Error: {message}", error_body=e), status
+    return render_template('Error.html', status=status, error=f"Error {status}: {error}", error_body=message), status
