@@ -61,6 +61,12 @@ p {
     color: #444;
 }
 
+i {
+    font-size: 1.6rem;
+    font-style: italic;
+    color: #444;
+}
+
 img {
     width: 100%;
 }

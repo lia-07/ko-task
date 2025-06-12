@@ -71,6 +71,8 @@ def TaskList():
             elif line.startswith("***") or line.startswith("---"):
                 # line is a divider
                 items += "<tr><td><hr></td><td</td><tr>\n"
+        if items == '':
+            items += "<tr><td></td><td><i>No todo items for today.</i></td><tr>\n"
     return render_template("KoboTask.html", today=today, items=items)
 
 @app.route('/tick/<today>/<i>/<t>', methods=['POST'])
