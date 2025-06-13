@@ -25,7 +25,9 @@ class ListItem:
         self.__content += f" <small>{now}</small>"
 
     def __remove_timestamp(self):
-        self.__content = self.__content[:-21]
+        if len(self.__content) > 20 and self.__content[-20] == "<" and self.__content[-1] == ">":
+            self.__content = self.__content[:-21]
+        return
 
     # setter for ticked attribute
     def toggle(self):
