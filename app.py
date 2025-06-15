@@ -12,29 +12,23 @@ class ListItem:
         self.__content = md_item[6:].rstrip()
         self.__ticked = True if md_item[3] == "x" else False
 
-    def __tick(self):
-        self.__add_timestamp()
-        self.__ticked = True
-
-    def __untick(self):
-        self.__remove_timestamp()
-        self.__ticked = False
-
     def __add_timestamp(self):
         now = datetime.now().strftime('%H:%M')
         self.__content += f" <small>{now}</small>"
 
     def __remove_timestamp(self):
-        if len(self.__content) > 20 and self.__content[-20] == "<" and self.__content[-1] == ">":
-            self.__content = self.__content[:-21]
-        return
+        self.__content = self.__content.split("<")[0].rstrip()
 
-    # setter for ticked attribute
-    def toggle(self):
-        if self.__ticked:
-            self.__untick()
-        else:
-            self.__tick()
+    def tick(self, timestamp):
+        if timestamp and not (len(self.__content) > 20 and self.__content[-20] == "<" and self.__content[-1] == ">"):
+            self.__add_timestamp()
+        self.__ticked = True
+
+    def untick(self):
+        if len(self.__content) > 20 and self.__content[-20] == "<" and self.__content[-1] == ">":
+            self.__remove_timestamp()
+
+        self.__ticked = False
 
     # getter for ticked attribute
     def is_ticked(self):
@@ -69,6 +63,11 @@ def TaskList():
             if line.startswith("- ["):
                 # line is a list item
                 item = ListItem(line)
+
+                # ensure unticked items don't have timestamps
+                if not item.is_ticked():
+                    item.untick()
+
                 items += item.to_html(i, today)
             elif line.startswith("***") or line.startswith("---"):
                 # line is a divider
@@ -87,8 +86,14 @@ def TickItem(today, i, t):
 
     item = ListItem(items[int(i)])
 
-    if (t == "untick" and item.is_ticked()) or (t == "tick" and not item.is_ticked()):
-        item.toggle()
+    match t:
+        case "untick":
+            item.untick()
+        case "tick" if not item.is_ticked():
+            item.tick(True)
+        # if an item is already ticked, don't add a timestamp
+        case "tick" if item.is_ticked():
+            item.tick(False)
 
     items[int(i)] = item.to_md()
 
