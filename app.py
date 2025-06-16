@@ -82,7 +82,7 @@ def TickItem(today, i, t):
         items = note.readlines()
 
     if int(i) < 0 or int(i) > (len(items)-1):
-        return "<h1>Error: List item number is out of bounds.</h1>"
+        return http_exception("416 Request Range Not Satisfiable: No item exists at the specified index (out of bounds).")
 
     item = ListItem(items[int(i)])
 
