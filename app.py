@@ -84,6 +84,10 @@ def TickItem(today, i, t):
     if int(i) < 0 or int(i) > (len(items)-1):
         return http_exception("416 Request Range Not Satisfiable: No item exists at the specified index (out of bounds).")
 
+    # make sure that the requested line is actually a list item
+    if not items[int(i)].startswith("- ["):
+        return http_exception("406 Not Acceptable: Line at index isn't a checkbox.")
+
     item = ListItem(items[int(i)])
 
     match t:
