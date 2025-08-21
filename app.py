@@ -85,7 +85,7 @@ def TaskList():
         if items == '':
             items += "<tr><td></td><td><i>No todo items for today.</i></td><tr>\n"
 
-    return render_template("KoboTask.html", today=today, items=items)
+    return render_template("Ko-Task.html", today=today, items=items)
 
 @app.route('/tick/<today>/<i>/<t>', methods=['POST'])
 def TickItem(today, i, t):
