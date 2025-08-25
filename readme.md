@@ -2,7 +2,7 @@
 
 A simple to-do list web application I made for use on my Kobo Clara eReader, with an extremely lightweight client designed for and tested on the very limited built-in Kobo browser. It is designed to integrate with my daily notes in [Obsidian](https://obsidian.md) by using Markdown files in a specified directory as a database (you don't need to use Obsidian for this to work).
 
-<img src="https://github.com/user-attachments/assets/1dc89206-e301-4122-b833-fd9f28f956e8" alt="Ko-Task in action." height="320px" width="240">
+<img src="https://github.com/user-attachments/assets/d72533c5-f50a-4916-90fb-78eef882d61f" alt="Ko-Task in action." height="320px" width="240">
 
 # Setup
 
