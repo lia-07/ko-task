@@ -1,6 +1,6 @@
 # Ko-Task
 
-A simple to-do list web application I made for use on my Ko- Clara eReader, with an extremely lightweight client designed for and tested on the very limited built-in Ko- browser. Designed to integrate with my daily notes in [Obsidian](https://obsidian.md) by using Markdown files in a specified directory as a database (you don't need to use Obsidian for this to work).
+A simple to-do list web application I made for use on my Kobo Clara eReader, with an extremely lightweight client designed for and tested on the very limited built-in Kobo browser. It is designed to integrate with my daily notes in [Obsidian](https://obsidian.md) by using Markdown files in a specified directory as a database (you don't need to use Obsidian for this to work).
 
 <img src="https://github.com/user-attachments/assets/aaf12fa3-529c-4c28-9a51-5ddf3a61bd82" alt="Ko-Task in action." height="320px" width="240">
 
